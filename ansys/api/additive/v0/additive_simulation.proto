@@ -61,10 +61,10 @@ message SimulateMicrostructureRequest {
 	bool use_provided_thermal_parameters = 10;
 	MachineSettings machine = 15;
 	AdditiveMaterial material = 16;
-	optional double cooling_rate = 20; // K/s
-	optional double thermal_gradient = 21; // K/m
-	optional double melt_pool_width = 22;
-	optional double melt_pool_depth = 23;
+	double cooling_rate = 20; // K/s
+	double thermal_gradient = 21; // K/m
+	double melt_pool_width = 22;
+	double melt_pool_depth = 23;
 	// use HasRandomSeed method to determine if the user provided a seed
-	optional uint32 random_seed = 24;
+	uint32 random_seed = 24;
 }
