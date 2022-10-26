@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+// See https://docs.microsoft.com/en-us/aspnet/core/grpc/versioning?view=aspnetcore-6.0 for what consitutes a breaking change
+package ansys.api.additive.v0.simulation;
+
+option csharp_namespace = "Ansys.Api.Additive.Simulation";
+
+import "ansys/api/additive/v0/additive_domain.proto";
+
+// Units are SI unless otherwise noted
+
+service SimulationService {
+	rpc SimulateSingleBead(SimulateSingleBeadRequest) returns (stream SimulationResponse);
+	rpc SimulatePorosity(SimulatePorosityRequest) returns (stream SimulationResponse);
+	rpc SimulateMicrostructure(SimulateMicrostructureRequest) returns (stream SimulationResponse);
+}
+
+message SimulationResponse {
+	string id = 1;
+	oneof ResponseType {
+		Progress progress = 10;
+		MeltPool melt_pool = 11;
+		PorosityResult porosity_result = 13;
+		MicrostructureResult microstructure_result = 14;
+	}
+}
+
+message SimulateSingleBeadRequest {
+	string id = 1;
+	double bead_length = 2;
+	BeadType bead_type = 3;
+	MachineSettings machine = 10;
+	AdditiveMaterial material = 11;
+}
+
+enum BeadType {
+	BEAD_TYPE_UNSPECIFIED = 0;
+	BEAD_TYPE_BEAD_ON_POWDER_LAYER = 1;
+	BEAD_TYPE_BEAD_ON_BASE_PLATE = 2;
+}
+
+message SimulatePorosityRequest {
+	string id = 1;
+	double size_x = 2;
+	double size_y = 3;
+	double size_z = 4;
+	MachineSettings machine = 10;
+	AdditiveMaterial material = 11;
+}
+
+message SimulateMicrostructureRequest {
+	string id = 1;
+	double cube_min_x = 3;
+	double cube_min_y = 4;
+	double cube_min_z = 5;
+	double cube_size_x = 6;
+	double cube_size_y = 7;
+	double cube_size_z = 8;
+	double sensor_dimension = 9;
+	// indicates that cooling_rate, thermal_gradient, melt_pool* have been provided by user
+	bool use_provided_thermal_parameters = 10;
+	MachineSettings machine = 15;
+	AdditiveMaterial material = 16;
+	optional double cooling_rate = 20; // K/s
+	optional double thermal_gradient = 21; // K/m
+	optional double melt_pool_width = 22;
+	optional double melt_pool_depth = 23;
+	// use HasRandomSeed method to determine if the user provided a seed
+	optional uint32 random_seed = 24;
+}
