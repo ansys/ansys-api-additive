@@ -110,9 +110,9 @@ enum ProgressState {
 }
 
 message PorosityResult {
-	double void_ratio = 1;
-	double powder_ratio = 2;
-	double solid_ratio = 3;
+    double void_ratio = 1;
+    double powder_ratio = 2;
+    double solid_ratio = 3;
 }
 
 message GrainStatistics {
