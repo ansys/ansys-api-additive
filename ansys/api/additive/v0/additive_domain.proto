@@ -102,7 +102,7 @@ message Progress {
 }
 
 enum ProgressState {
-	PROGRESS_STATE_UNSPECIFIED = 0; // default value used in messages
+    PROGRESS_STATE_UNSPECIFIED = 0; // default value used in messages
     PROGRESS_STATE_WAITING = 1;
     PROGRESS_STATE_EXECUTING = 2;
     PROGRESS_STATE_COMPLETED = 3;
