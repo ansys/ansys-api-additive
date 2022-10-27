@@ -7,11 +7,11 @@ option csharp_namespace = "Ansys.Api.Additive";
 // All units are assumed to be SI unless otherwise noted
 
 message MachineSettings {
-	double laser_power = 1;
-	double scan_speed = 2;
-	double heater_temperature = 3;
-	double layer_thickness = 4;
-	double beam_diameter = 5;
+    double laser_power = 1;
+    double scan_speed = 2;
+    double heater_temperature = 3;
+    double layer_thickness = 4;
+    double beam_diameter = 5;
     double starting_layer_angle = 6;
     double layer_rotation_angle = 7;
     double hatch_spacing = 8;
