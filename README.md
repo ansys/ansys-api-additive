@@ -1,15 +1,52 @@
-# ansys-gh-pages-template
+### ansys-api-additive gRPC Interface Package
 
-This repo is a simple template using
-[jekyll-theme-corp](https://github.com/ansys/jekyll-theme-corp) to demonstrate how to generate a GitHub hosted website using the new [Publishing with a custom GitHub Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow). This approach does not require you to create and deploy from a `gh-pages` branch and simplifies building a GitHub Page.
+This Python package contains the auto-generated gRPC Python interface files for
+Additive.
 
-### Usage
+#### Installation
 
-You can use this template by:
+Provided that these wheels have been published to public PyPI, they can be
+installed with:
 
-1. Creating a [New](https://github.com/organizations/ansys/repositories/new) repository within the [github.com/ansys](https://github.com/ansys) organization.
-2. Add more content by modifying the existing markdown files and expanding it by following the following documentation:
+```
+pip install ansys-api-additive
+```
 
-- [Jekyll - Markdown Guide](https://www.markdownguide.org/tools/jekyll/)
-- [Jekyll-Markdown-Cheat-Sheet](https://itopaloglu83.github.io/Jekyll-Markdown-Cheat-Sheet/)
-- [About GitHub Pages and Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll)
+#### Build
+
+To build the gRPC packages, run:
+
+```
+pip install build
+python -m build
+```
+
+This will create both the source distribution containing just the protofiles
+along with the wheel containing the protofiles and build Python interface
+files.
+
+#### Manual Deployment
+
+After building the packages, manually deploy them with:
+
+```
+pip install twine
+twine upload dist/*
+```
+
+Note that this is automatically done through CI/CD.
+
+#### Automatic Deployment
+
+This repository contains GitHub CI/CD that enables the automatic building of
+source and wheel packages for these gRPC Python interface files. By default,
+these are built on PRs, the main branch, and on tags when pushing. Artifacts
+are uploaded for each PR.
+
+To publicly release wheels to PyPI, ensure your branch is up-to-date and then
+push tags. For example, for the version ``v0.5.0``.
+
+```bash
+git tag v0.5.0
+git push --tags
+```
