@@ -49,6 +49,7 @@ jobs:
           cd tmp
           python -c "import ${{ env.PACKAGE_NAME }}.${{ env.DEFINITION_VERSION }}; print('Sucessfully imported ${{ env.PACKAGE_NAME}}.${{ env.DEFINITION_VERSION }}')"
           python -c "from ${{ env.PACKAGE_NAME }} import __version__; print(__version__)"
+
       - name: Upload packages
         uses: actions/upload-artifact@v3
         with:
