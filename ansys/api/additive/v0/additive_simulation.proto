@@ -65,6 +65,7 @@ message SimulateMicrostructureRequest {
 	double thermal_gradient = 21; // K/m
 	double melt_pool_width = 22;
 	double melt_pool_depth = 23;
-	// use HasRandomSeed method to determine if the user provided a seed
-	uint32 random_seed = 24;
+	// indicates that random_seed has been provided by the user
+	bool use_random_seed = 24;
+	uint32 random_seed = 25;
 }
