@@ -104,7 +104,6 @@ jobs:
 
   nuget:
     # if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    if: github.event_name == 'push'
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
