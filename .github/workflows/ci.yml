@@ -15,49 +15,49 @@ env:
   DEFINITION_VERSION: "v0"
 
 jobs:
-  build:
-    name: Build package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+  # build:
+  #   name: Build python package
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Setup Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      # Uncomment once the proto files are stable enough on their side
+  #     # Uncomment once the proto files are stable enough on their side
 
-      # - name: Run protolint
-      #   uses: plexsystems/protolint-action@v0.7.0
-      #   with:
-      #     configDirectory: .
+  #     # - name: Run protolint
+  #     #   uses: plexsystems/protolint-action@v0.7.0
+  #     #   with:
+  #     #     configDirectory: .
 
-      - name: Install build requirements
-        run: |
-          pip install -U pip
-          pip install build
+  #     - name: Install build requirements
+  #       run: |
+  #         pip install -U pip
+  #         pip install build
 
-      - name: Build
-        run: python -m build
+  #     - name: Build
+  #       run: python -m build
 
-      - name: Install
-        run: pip install dist/*.whl
+  #     - name: Install
+  #       run: pip install dist/*.whl
 
-      - name: Test import
-        run: |
-          mkdir tmp
-          cd tmp
-          python -c "import ${{ env.PACKAGE_NAME }}.${{ env.DEFINITION_VERSION }}; print('Sucessfully imported ${{ env.PACKAGE_NAME}}.${{ env.DEFINITION_VERSION }}')"
-          python -c "from ${{ env.PACKAGE_NAME }} import __version__; print(__version__)"
+  #     - name: Test import
+  #       run: |
+  #         mkdir tmp
+  #         cd tmp
+  #         python -c "import ${{ env.PACKAGE_NAME }}.${{ env.DEFINITION_VERSION }}; print('Sucessfully imported ${{ env.PACKAGE_NAME}}.${{ env.DEFINITION_VERSION }}')"
+  #         python -c "from ${{ env.PACKAGE_NAME }} import __version__; print(__version__)"
 
-      - name: Upload packages
-        uses: actions/upload-artifact@v3
-        with:
-          name: ansys-api-additive-packages
-          path: dist/
-          retention-days: 7
+  #     - name: Upload packages
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: ansys-api-additive-packages
+  #         path: dist/
+  #         retention-days: 7
 
-  Release:
+  release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     needs: [build]
     runs-on: ubuntu-latest
@@ -90,7 +90,7 @@ jobs:
           twine upload --skip-existing ./**/*.tar.gz
         env:
           TWINE_USERNAME: PAT
-          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }} 
+          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
           TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
 
       - name: Release
@@ -101,3 +101,25 @@ jobs:
             ./**/*.whl
             ./**/*.tar.gz
             ./**/*.pdf
+
+  nuget:
+    # if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    if: github.event_name == 'push'
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0
+
+      # Publish
+      - name: build and publish nuget package
+        run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys/index.json"
+          version=$(find . -name VERSION -exec cat "{}" \;)
+          rm -rf nuget_package
+          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:PackageVersion=${version}
+          dotnet nuget push nuget_package/*.nupkg --source github
