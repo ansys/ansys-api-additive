@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    name: Build package
+    name: Build python package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -57,7 +57,7 @@ jobs:
           path: dist/
           retention-days: 7
 
-  Release:
+  release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     needs: [build]
     runs-on: ubuntu-latest
@@ -90,7 +90,7 @@ jobs:
           twine upload --skip-existing ./**/*.tar.gz
         env:
           TWINE_USERNAME: PAT
-          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }} 
+          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
           TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
 
       - name: Release
@@ -101,3 +101,24 @@ jobs:
             ./**/*.whl
             ./**/*.tar.gz
             ./**/*.pdf
+
+  nuget:
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      # Publish
+      - name: build and publish nuget package
+        run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys/index.json"
+          version=$(find . -name VERSION -exec cat "{}" \;)
+          rm -rf nuget_package
+          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:PackageVersion=${version}
+          dotnet nuget push nuget_package/*.nupkg --source github
