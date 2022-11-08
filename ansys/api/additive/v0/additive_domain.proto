@@ -133,7 +133,7 @@ message MicrostructureResult {
 
 message VtkFile {
     string name = 1;
-    bytes data = 2;
+    bytes content = 2;
 }
 
 message ThermalHistoryResult {
@@ -157,6 +157,7 @@ enum GeometryFileType {
 }
 
 message Geometry {
-    GeometryFileType file_type = 1;
-    repeated bytes file_data = 2;
+    string name = 1;
+    GeometryFileType type = 2;
+    repeated bytes content = 3;
 }
