@@ -130,3 +130,33 @@ message MicrostructureResult {
     bytes xz_vtk = 5;
     bytes yz_vtk = 6;
 }
+
+message VtkFile {
+    string name = 1;
+    bytes data = 2;
+}
+
+message ThermalHistoryResult {
+    repeated VtkFile vtk_files = 1;
+}
+
+message Range {
+    double min = 1;
+    double max = 2;
+}
+
+message CoaxialAverageSensorInputs {
+    float sensor_size = 1;
+    repeated Range z_heights = 2;
+}
+
+enum GeometryFileType {
+    GEOMETRY_FILE_TYPE_NONE = 0;
+    GEOMETRY_FILE_TYPE_STL = 1;
+    GEOMETRY_FILE_TYPE_BUILD_FILE = 2;
+}
+
+message Geometry {
+    GeometryFileType file_type = 1;
+    repeated bytes file_data = 2;
+}
