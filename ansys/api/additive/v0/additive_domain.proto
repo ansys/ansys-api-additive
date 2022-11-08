@@ -159,5 +159,5 @@ enum GeometryFileType {
 message Geometry {
     string name = 1;
     GeometryFileType type = 2;
-    repeated bytes content = 3;
+    bytes content = 3;
 }
