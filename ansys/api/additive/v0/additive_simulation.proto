@@ -13,6 +13,7 @@ service SimulationService {
 	rpc SimulateSingleBead(SimulateSingleBeadRequest) returns (stream SimulationResponse);
 	rpc SimulatePorosity(SimulatePorosityRequest) returns (stream SimulationResponse);
 	rpc SimulateMicrostructure(SimulateMicrostructureRequest) returns (stream SimulationResponse);
+	rpc SimulateThermalHistory(SimulateThermalHistoryRequest) returns (stream SimulationResponse);
 }
 
 message SimulationResponse {
@@ -22,6 +23,7 @@ message SimulationResponse {
 		MeltPool melt_pool = 11;
 		PorosityResult porosity_result = 13;
 		MicrostructureResult microstructure_result = 14;
+		ThermalHistoryResult thermal_history_result = 15;
 	}
 }
 
@@ -68,4 +70,11 @@ message SimulateMicrostructureRequest {
 	// indicates that random_seed has been provided by the user
 	bool use_random_seed = 24;
 	uint32 random_seed = 25;
+}
+
+message SimulateThermalHistoryRequest {
+	Geometry geometry = 1;
+	CoaxialAverageSensorInputs coax_ave_sensor_inputs = 2;
+	MachineSettings machine = 10;
+	AdditiveMaterial material = 11;
 }

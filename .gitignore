@@ -42,3 +42,4 @@ venv/
 # Compiled code
 bin/
 obj/
+protoc/
