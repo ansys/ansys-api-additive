@@ -146,7 +146,7 @@ message Range {
 }
 
 message CoaxialAverageSensorInputs {
-    float sensor_size = 1;
+    float sensor_radius = 1;
     repeated Range z_heights = 2;
 }
 
