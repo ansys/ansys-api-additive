@@ -10,10 +10,9 @@ import "ansys/api/additive/v0/additive_domain.proto";
 // Units are SI unless otherwise noted
 
 service SimulationService {
-	rpc SimulateSingleBead(SimulateSingleBeadRequest) returns (stream SimulationResponse);
-	rpc SimulatePorosity(SimulatePorosityRequest) returns (stream SimulationResponse);
-	rpc SimulateMicrostructure(SimulateMicrostructureRequest) returns (stream SimulationResponse);
-	rpc SimulateThermalHistory(SimulateThermalHistoryRequest) returns (stream SimulationResponse);
+	rpc Simulate(SimulationRequest) returns (stream SimulationResponse);
+	rpc UploadFile(stream FileUploadRequest) returns (stream FileUploadResponse);
+	rpc DownloadFile(FileDownloadRequest) returns (stream FileDownloadResponse);
 }
 
 message SimulationResponse {
@@ -27,54 +26,49 @@ message SimulationResponse {
 	}
 }
 
-message SimulateSingleBeadRequest {
+message SimulationRequest {
 	string id = 1;
-	double bead_length = 2;
-	BeadType bead_type = 3;
-	MachineSettings machine = 10;
-	AdditiveMaterial material = 11;
+	oneof Input {
+		SingleBeadInput single_bead_input = 10;
+		PorosityInput porosity_input = 11;
+		MicrostructureInput microstructure_input = 12;
+		ThermalHistoryInput thermal_history_input = 13;
+	}
 }
 
-enum BeadType {
-	BEAD_TYPE_UNSPECIFIED = 0;
-	BEAD_TYPE_BEAD_ON_POWDER_LAYER = 1;
-	BEAD_TYPE_BEAD_ON_BASE_PLATE = 2;
+// FileUploadRequst is used to transfer a file in chunks from
+// a client to the server. Each message should be less than
+// 4 MB unless the gRPC max message size has been changed.
+// Following the transfer of the file contents, a final message
+// must be sent which includes the md5 sum of the entire file.
+message FileUploadRequest {
+	string name = 1;
+	uint64 total_size = 2;
+	oneof Data {
+		bytes content = 3;
+		string md5 = 4; // sent when transfer is complete
+	}
 }
 
-message SimulatePorosityRequest {
-	string id = 1;
-	double size_x = 2;
-	double size_y = 3;
-	double size_z = 4;
-	MachineSettings machine = 10;
-	AdditiveMaterial material = 11;
+message FileUploadResponse {
+	string remote_file_name = 1;
+	Progress progress = 2;
 }
 
-message SimulateMicrostructureRequest {
-	string id = 1;
-	double cube_min_x = 3;
-	double cube_min_y = 4;
-	double cube_min_z = 5;
-	double cube_size_x = 6;
-	double cube_size_y = 7;
-	double cube_size_z = 8;
-	double sensor_dimension = 9;
-	// indicates that cooling_rate, thermal_gradient, melt_pool* have been provided by user
-	bool use_provided_thermal_parameters = 10;
-	MachineSettings machine = 15;
-	AdditiveMaterial material = 16;
-	double cooling_rate = 20; // K/s
-	double thermal_gradient = 21; // K/m
-	double melt_pool_width = 22;
-	double melt_pool_depth = 23;
-	// indicates that random_seed has been provided by the user
-	bool use_random_seed = 24;
-	uint32 random_seed = 25;
+message FileDownloadRequest {
+	string remote_file_name = 1;
 }
 
-message SimulateThermalHistoryRequest {
-	Geometry geometry = 1;
-	CoaxialAverageSensorInputs coax_ave_sensor_inputs = 2;
-	MachineSettings machine = 10;
-	AdditiveMaterial material = 11;
+// FileDownloadRequst is used to transfer a file in chunks from
+// the server to a client. Each message should be less than
+// 4 MB unless the gRPC max message size has been changed.
+// Following the transfer of the file contents, a final message
+// must be sent which includes the md5 sum of the entire file.
+message FileDownloadResponse {
+	string file_name = 1;
+	uint64 total_size = 2;
+	oneof Data {
+		bytes content = 3;
+		string md5 = 4; // sent when transfer is complete
+	}
 }
