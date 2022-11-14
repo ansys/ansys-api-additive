@@ -150,14 +150,74 @@ message CoaxialAverageSensorInputs {
     repeated Range z_heights = 2;
 }
 
-enum GeometryFileType {
-    GEOMETRY_FILE_TYPE_NONE = 0;
-    GEOMETRY_FILE_TYPE_STL = 1;
-    GEOMETRY_FILE_TYPE_BUILD_FILE = 2;
+enum BuildFileMachineType {
+    BUILD_FILE_MACHINE_TYPE_NONE = 0;
+    BUILD_FILE_MACHINE_TYPE_AI = 1;
+    BUILD_FILE_MACHINE_TYPE_SLM = 2;
+    BUILD_FILE_MACHINE_TYPE_RENISHAW = 3;
+    BUILD_FILE_MACHINE_TYPE_EOS = 4;
+    BUILD_FILE_MACHINE_TYPE_TRUMPF = 5;
+    BUILD_FILE_MACHINE_TYPE_HB3D = 6;
+    BUILD_FILE_MACHINE_TYPE_SISMA = 7;
 }
 
-message Geometry {
+message BuildFile {
+    BuildFileMachineType type = 1;
+    string name = 2;
+}
+
+message StlFile {
     string name = 1;
-    GeometryFileType type = 2;
-    bytes content = 3;
+}
+
+message SingleBeadInput {
+	double bead_length = 2;
+	BeadType bead_type = 3;
+	MachineSettings machine = 10;
+	AdditiveMaterial material = 11;
+}
+
+enum BeadType {
+	BEAD_TYPE_UNSPECIFIED = 0;
+	BEAD_TYPE_BEAD_ON_POWDER_LAYER = 1;
+	BEAD_TYPE_BEAD_ON_BASE_PLATE = 2;
+}
+
+message PorosityInput {
+	double size_x = 2;
+	double size_y = 3;
+	double size_z = 4;
+	MachineSettings machine = 10;
+	AdditiveMaterial material = 11;
+}
+
+message MicrostructureInput {
+	double cube_min_x = 2;
+	double cube_min_y = 3;
+	double cube_min_z = 4;
+	double cube_size_x = 5;
+	double cube_size_y = 6;
+	double cube_size_z = 7;
+	double sensor_dimension = 8;
+	// indicates that cooling_rate, thermal_gradient, melt_pool* have been provided by user
+	bool use_provided_thermal_parameters = 9;
+	MachineSettings machine = 15;
+	AdditiveMaterial material = 16;
+	double cooling_rate = 20; // K/s
+	double thermal_gradient = 21; // K/m
+	double melt_pool_width = 22;
+	double melt_pool_depth = 23;
+	// indicates that random_seed has been provided by the user
+	bool use_random_seed = 24;
+	uint32 random_seed = 25;
+}
+
+message ThermalHistoryInput {
+    oneof FileType {
+        StlFile stl_file = 1;
+        BuildFile build_file = 2;
+    }
+	CoaxialAverageSensorInputs coax_ave_sensor_inputs = 10;
+	MachineSettings machine = 11;
+	AdditiveMaterial material = 12;
 }
