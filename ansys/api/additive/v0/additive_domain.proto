@@ -109,37 +109,6 @@ enum ProgressState {
     PROGRESS_STATE_ERROR = 4;
 }
 
-message PorosityResult {
-    double void_ratio = 1;
-    double powder_ratio = 2;
-    double solid_ratio = 3;
-}
-
-message GrainStatistics {
-    uint32 grain_number = 1;
-    float area_fraction = 2;
-    float diameter_um = 3; // microns
-    float orientation_angle = 4;
-}
-
-message MicrostructureResult {
-    repeated GrainStatistics xy_circle_equivalence = 1;
-    repeated GrainStatistics xz_circle_equivalence = 2;
-    repeated GrainStatistics yz_circle_equivalence = 3;
-    bytes xy_vtk = 4;
-    bytes xz_vtk = 5;
-    bytes yz_vtk = 6;
-}
-
-message VtkFile {
-    string name = 1;
-    bytes content = 2;
-}
-
-message ThermalHistoryResult {
-    repeated VtkFile vtk_files = 1;
-}
-
 message Range {
     double min = 1;
     double max = 2;
@@ -191,6 +160,12 @@ message PorosityInput {
     AdditiveMaterial material = 11;
 }
 
+message PorosityResult {
+    double void_ratio = 1;
+    double powder_ratio = 2;
+    double solid_ratio = 3;
+}
+
 message MicrostructureInput {
     double cube_min_x = 2;
     double cube_min_y = 3;
@@ -212,6 +187,22 @@ message MicrostructureInput {
     uint32 random_seed = 25;
 }
 
+message GrainStatistics {
+    uint32 grain_number = 1;
+    float area_fraction = 2;
+    float diameter_um = 3; // microns
+    float orientation_angle = 4;
+}
+
+message MicrostructureResult {
+    repeated GrainStatistics xy_circle_equivalence = 1;
+    repeated GrainStatistics xz_circle_equivalence = 2;
+    repeated GrainStatistics yz_circle_equivalence = 3;
+    bytes xy_vtk = 4;
+    bytes xz_vtk = 5;
+    bytes yz_vtk = 6;
+}
+
 message ThermalHistoryInput {
     oneof FileType {
         StlFile stl_file = 1;
@@ -220,4 +211,8 @@ message ThermalHistoryInput {
     CoaxialAverageSensorInputs coax_ave_sensor_inputs = 10;
     MachineSettings machine = 11;
     AdditiveMaterial material = 12;
+}
+
+message ThermalHistoryResult {
+    string coax_ave_zip_file = 1;
 }
