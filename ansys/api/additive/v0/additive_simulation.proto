@@ -36,18 +36,14 @@ message SimulationRequest {
 	}
 }
 
-// FileUploadRequst is used to transfer a file in chunks from
-// a client to the server. Each message should be less than
-// 4 MB unless the gRPC max message size has been changed.
-// Following the transfer of the file contents, a final message
-// must be sent which includes the md5 sum of the entire file.
+// FileUploadReqeust is used to transfer a file in chunks from
+// a client to the server. Each message should be <= 4MiB
+// unless the gRPC max receive message size has been changed.
 message FileUploadRequest {
-	string name = 1;
-	uint64 total_size = 2;
-	oneof Data {
-		bytes content = 3;
-		string md5 = 4; // sent when transfer is complete
-	}
+	string name = 1; 		// file name on client
+	uint64 total_size = 2; 	// total file size in bytes
+	bytes content = 3; 		// chunk of file content
+	string content_md5 = 4; // md5 hash of content
 }
 
 message FileUploadResponse {
@@ -56,19 +52,15 @@ message FileUploadResponse {
 }
 
 message FileDownloadRequest {
-	string remote_file_name = 1;
+	string remote_file_name = 1; // full path to file on server
 }
 
-// FileDownloadRequst is used to transfer a file in chunks from
-// the server to a client. Each message should be less than
-// 4 MB unless the gRPC max message size has been changed.
-// Following the transfer of the file contents, a final message
-// must be sent which includes the md5 sum of the entire file.
+// FileDownloadResponse is used to transfer a file in chunks from
+// the server to a client.
 message FileDownloadResponse {
-	string file_name = 1;
-	uint64 total_size = 2;
-	oneof Data {
-		bytes content = 3;
-		string md5 = 4; // sent when transfer is complete
-	}
+	string file_name = 1; 	// name of file without path
+	uint64 total_size = 2;	// total file size in bytes
+	bytes content = 3;		// chunk of file content
+	string content_md5 = 4; // md5 hash of content
+	Progress progress = 10;	// download progress
 }
