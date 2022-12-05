@@ -36,7 +36,7 @@ message SimulationRequest {
 	}
 }
 
-// FileUploadReqeust is used to transfer a file in chunks from
+// FileUploadRequest is used to transfer a file in chunks from
 // a client to the server. Each message should be <= 4MiB
 // unless the gRPC max receive message size has been changed.
 message FileUploadRequest {
