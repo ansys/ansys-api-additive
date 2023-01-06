@@ -66,25 +66,17 @@ message AdditiveMaterial {
     double nucleation_constant_bulk = 31;
     double nucleation_constant_interface = 32;
     string name = 34;
-    ThermalCharacteristicDataSet thermal_characteristic_data_set = 35;
-    CharacteristicWidthDataSet characteristic_width_data_set = 36;
-}
-
-message CharacteristicWidthDataSet {
-    repeated CharacteristicWidthDataPoint characteristic_width_data_points = 1;
+    repeated ThermalPropertiesDataPoint thermal_properties_data_points = 35;
+    repeated CharacteristicWidthDataPoint characteristic_width_data_points = 36;
 }
 
 message CharacteristicWidthDataPoint {
-    double speed = 1;
-    double power = 2;
+    double scan_speed = 1;
+    double laser_power = 2;
     double characteristic_width = 3;
 }
 
-message ThermalCharacteristicDataSet {
-    repeated ThermalCharacteristicDataPoint thermal_characteristic_data_points = 1;
-}
-
-message ThermalCharacteristicDataPoint {
+message ThermalPropertiesDataPoint {
     double temperature = 1;
     double thermal_conductivity = 2;
     double specific_heat = 3;
