@@ -13,6 +13,8 @@ service MaterialsService {
     rpc GetMaterialsList (google.protobuf.Empty) returns (GetMaterialsListResponse);
 
     rpc GetMaterial (GetMaterialRequest) returns (AdditiveMaterial);
+
+    rpc TuneMaterial (TuneMaterialRequest) returns (stream TuneMaterialResponse);
 }
 
 message GetMaterialRequest {
@@ -22,3 +24,15 @@ message GetMaterialRequest {
 message GetMaterialsListResponse {
     repeated string names = 1;
 }
+
+message TuneMaterialRequest {
+    string id = 1;
+    MaterialTuningInput input = 2;
+}
+
+message TuneMaterialResponse {
+    string id = 1;
+    Progress progress = 2;
+    MaterialTuningResult result = 3;
+}
+

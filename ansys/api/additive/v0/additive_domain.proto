@@ -208,3 +208,19 @@ message ThermalHistoryInput {
 message ThermalHistoryResult {
     string coax_ave_zip_file = 1;
 }
+
+message MaterialTuningInput {
+    float allowable_error = 1;
+    uint32 max_iterations = 2;
+    bytes experimental_data = 3;
+    bytes material_parameters = 4;
+    bytes thermal_properties_lookup = 5;
+    bytes characteristic_width_lookup = 10;
+    double base_plate_temperature = 11;
+}
+
+message MaterialTuningResult {
+    bytes log = 1;
+    bytes optimized_parameters = 2;
+    bytes characteristic_width_lookup = 10;
+}
