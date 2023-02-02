@@ -212,7 +212,7 @@ message ThermalHistoryResult {
 message MaterialTuningInput {
     float allowable_error = 1;
     uint32 max_iterations = 2;
-    bytes experimental_data = 3;
+    bytes experiment_data = 3;
     bytes material_parameters = 4;
     bytes thermal_properties_lookup = 5;
     bytes characteristic_width_lookup = 10;
