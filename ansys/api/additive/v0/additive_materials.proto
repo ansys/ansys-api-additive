@@ -32,7 +32,9 @@ message TuneMaterialRequest {
 
 message TuneMaterialResponse {
     string id = 1;
-    Progress progress = 2;
-    MaterialTuningResult result = 3;
+    oneof ResponseType {
+        Progress progress = 10;
+        MaterialTuningResult result = 11;
+    }
 }
 
