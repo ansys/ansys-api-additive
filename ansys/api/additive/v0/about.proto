@@ -7,15 +7,14 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 
-// The greeting service definition.
-service About {
-  rpc About (google.protobuf.Empty) returns (AboutReply) {
+service AboutService {
+  rpc About (google.protobuf.Empty) returns (AboutResponse) {
     option (google.api.http) = {
       get: "/about"
     };
   }
 }
 
-message AboutReply {
+message AboutResponse {
     map<string, string> metadata = 1;
 }
