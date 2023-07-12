@@ -38,7 +38,7 @@ if __name__ == "__main__":
         license="MIT",
         python_requires=">=3.8",
         install_requires=["grpcio~=1.47", "protobuf>=3.19,<5"],
-        packages=setuptools.find_namespace_packages(".", include=("ansys.*",)),
+        packages=setuptools.find_namespace_packages(".", include=("ansys.*","google.*")),
         package_data={
             "": ["*.proto", "*.pyi", "py.typed", "VERSION"],
         },
