@@ -57,6 +57,18 @@ jobs:
           path: dist/
           retention-days: 7
 
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Build nuget package
+        run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
+          version=$(find . -name VERSION -exec cat "{}" \;)
+          rm -rf nuget_package
+          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:PackageVersion=${version}
+
   release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     needs: [build]
@@ -104,7 +116,7 @@ jobs:
 
   nuget:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    name: build, pack & publish
+    name: Publish nuget package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -115,7 +127,7 @@ jobs:
           dotnet-version: 6.0.x
 
       # Publish
-      - name: build and publish nuget package
+      - name: Build and publish nuget package
         run: |
           dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
           version=$(find . -name VERSION -exec cat "{}" \;)
