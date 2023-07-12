@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package ansys.api.additive.v0.about;
+
+option csharp_namespace = "Ansys.Api.Additive";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+
+// The greeting service definition.
+service About {
+  rpc About (google.protobuf.Empty) returns (AboutReply) {
+    option (google.api.http) = {
+      get: "/about"
+    };
+  }
+}
+
+message AboutReply {
+    map<string, string> metadata = 1;
+}
