@@ -119,14 +119,6 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
           TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Publish nuget package
-        run: |
-          dotnet nuget push ./**/*.nupkg --source github
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -138,3 +130,21 @@ jobs:
             ./**/*.pdf
             ./**/*.nupkg
 
+  publish-nuget-package:
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    needs: [nuget]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - uses: actions/download-artifact@v3
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Publish nuget package
+        run: |
+          dotnet nuget push ./**/*.nupkg --source github
