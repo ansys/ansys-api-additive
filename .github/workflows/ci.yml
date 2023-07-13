@@ -132,5 +132,5 @@ jobs:
           dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
           version=$(find . -name VERSION -exec cat "{}" \;)
           rm -rf nuget_package
-          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:PackageVersion=${version}
+          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:Version=${version}
           dotnet nuget push nuget_package/*.nupkg --source github
