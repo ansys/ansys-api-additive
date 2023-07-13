@@ -147,4 +147,5 @@ jobs:
 
       - name: Publish nuget package
         run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
           dotnet nuget push ./**/*.nupkg --source github
