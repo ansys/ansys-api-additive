@@ -5,6 +5,7 @@
     <AssemblyName>Ansys.Api.Additive</AssemblyName>
     <Authors>Additive Developers</Authors>
     <Company>Ansys Inc.</Company>
+    <Copyright>(c) 2023, Ansys Inc.</Copyright>
     <PackageDescription>Protobuf definitions for Additive API</PackageDescription>
     <RepositoryUrl>https://github.com/ansys/ansys-api-additive</RepositoryUrl>
   </PropertyGroup>
