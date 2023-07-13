@@ -13,6 +13,7 @@ env:
   MAIN_PYTHON_VERSION: "3.10"
   PACKAGE_NAME: "ansys.api.additive"
   DEFINITION_VERSION: "v0"
+  DOTNET_VERSION: "6.0.x"
 
 jobs:
   build:
@@ -57,21 +58,34 @@ jobs:
           path: dist/
           retention-days: 7
 
+  nuget:
+    name: Build nuget package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      # Publish
       - name: Build nuget package
         run: |
           dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
           version=$(find . -name VERSION -exec cat "{}" \;)
           rm -rf nuget_package
-          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:PackageVersion=${version}
+          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:Version=${version}
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ansys-api-additive-packages
+          path: nuget_package/
+          retention-days: 7
 
   release:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    needs: [build]
+    needs: [build, nuget]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -105,6 +119,15 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
           TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
 
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish nuget package
+        run: |
+          dotnet nuget push ./**/*.nupkg --source github
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -113,24 +136,5 @@ jobs:
             ./**/*.whl
             ./**/*.tar.gz
             ./**/*.pdf
+            ./**/*.nupkg
 
-  nuget:
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    name: Publish nuget package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.x
-
-      # Publish
-      - name: Build and publish nuget package
-        run: |
-          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ansys-internal/index.json"
-          version=$(find . -name VERSION -exec cat "{}" \;)
-          rm -rf nuget_package
-          dotnet pack csharp/Ansys.Api.Additive.csproj -c Release -o nuget_package -p:Version=${version}
-          dotnet nuget push nuget_package/*.nupkg --source github
