@@ -14,7 +14,7 @@ env:
   PACKAGE_NAME: "ansys.api.additive"
   DEFINITION_VERSION: "v0"
   DOTNET_VERSION: "6.0.x"
-  GITHUB_NUGET_REPO: "https://nuget.pkg.github.com/ansys-internal/index.json"
+  GITHUB_NUGET_REPO: "https://nuget.pkg.github.com/ansys/index.json"
 
 jobs:
   build:
