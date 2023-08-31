@@ -15,9 +15,7 @@ with open(os.path.join(HERE, "README.md"), encoding="utf-8") as f:
 product = "additive"
 library = ""
 package_info = ["ansys", "api", product, library, "v0"]
-with open(
-    os.path.join(HERE, "ansys", "api", product, library, "VERSION"), encoding="utf-8"
-) as f:
+with open(os.path.join(HERE, "ansys", "api", product, library, "VERSION"), encoding="utf-8") as f:
     version = f.read().strip()
 
 package_name = "ansys-api-additive"
@@ -30,14 +28,16 @@ if __name__ == "__main__":
         name=package_name,
         version=version,
         author="ANSYS, Inc.",
-        author_email="support@ansys.com",
+        author_email='pyansys.core@ansys.com',
+        maintainer="ANSYS, Inc.",
+        maintainer_email='pyansys.core@ansys.com',
         description=description,
         long_description=long_description,
         long_description_content_type="text/markdown",
         url=f"https://github.com/ansys/{package_name}",
         license="MIT",
-        python_requires=">=3.8",
-        install_requires=["grpcio~=1.47", "protobuf>=3.19,<5"],
+        python_requires=">=3.8,<4",
+        install_requires=["grpcio~=1.47", "protobuf~=3.19"],
         packages=setuptools.find_namespace_packages(".", include=("ansys.*","google.*")),
         package_data={
             "": ["*.proto", "*.pyi", "py.typed", "VERSION"],
@@ -48,4 +48,9 @@ if __name__ == "__main__":
             ],
         },
         cmdclass=CMDCLASS_OVERRIDE,
+        project_urls={
+            'Documentation': 'https://github.com/ansys/ansys-api-additive/#readme',
+            'Source': 'https://github.com/ansys/ansys-api-additive/',
+            'Tracker': 'https://github.com/ansys/ansys-api-additive/issues/',
+        },
     )
