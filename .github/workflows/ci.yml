@@ -14,7 +14,7 @@ env:
   PACKAGE_NAME: "ansys.api.additive"
   DEFINITION_VERSION: "v0"
   DOTNET_VERSION: "6.0.x"
-  GITHUB_NUGET_REPO: "https://nuget.pkg.github.com/ansys-internal/index.json"
+  GITHUB_NUGET_REPO: "https://nuget.pkg.github.com/ansys/index.json"
 
 jobs:
   build:
@@ -26,13 +26,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
-      # Uncomment once the proto files are stable enough on their side
-
-      # - name: Run protolint
-      #   uses: plexsystems/protolint-action@v0.7.0
-      #   with:
-      #     configDirectory: .
 
       - name: Install build requirements
         run: |
@@ -90,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
@@ -99,27 +92,14 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
 
-      # uncomment the following section to permit upload to public PyPI
-
-      # - name: Upload to Public PyPi
-      #   run: |
-      #     pip install twine
-      #     twine upload --skip-existing ./**/*.whl
-      #     twine upload --skip-existing ./**/*.tar.gz
-      #   env:
-      #     TWINE_USERNAME: __token__
-      #     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-
-      - name: Upload to Private PyPi
+      - name: Upload to Public PyPi
         run: |
           pip install twine
           twine upload --skip-existing ./**/*.whl
           twine upload --skip-existing ./**/*.tar.gz
         env:
-          TWINE_USERNAME: PAT
-          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
-          TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
-
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
