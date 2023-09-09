@@ -217,3 +217,37 @@ message MaterialTuningResult {
     bytes optimized_parameters = 2;
     bytes characteristic_width_lookup = 10;
 }
+
+enum ThermalSolveType {
+    THERMAL_SOLVE_TYPE_UNSPECIFIED = 0; // default value used in messages
+    THERMAL_SOLVE_TYPE_SCAN_PATTERN = 1;
+}
+
+message ThermalStrainInput {
+    oneof FileType {
+        StlFile stl_file = 1;
+        BuildFile build_file = 2;
+    }
+    ThermalSolveType solve_type = 3;
+    MachineSettings machine = 10;
+    AdditiveMaterial material = 11;
+}
+
+message ThermalStrainResult {
+    string shrinkage_file = 1; // name of zip archive on server
+    uint32 number_of_deposit_layers = 2;
+    float layer_thickness = 3;
+}
+
+message VoxelMeshInput {
+    oneof FileType {
+        StlFile stl_file = 1;
+        BuildFile build_file = 2;
+    }
+    float voxel_size = 3;
+}
+
+message VoxelMeshResult {
+    string voxel_file = 1; // name of voxel file on server
+}
+
