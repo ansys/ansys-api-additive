@@ -43,7 +43,7 @@ need to create a nuget source with your GitHub user credentials.
 dotnet nuget add source --username USERNAME --password GITHUB_TOKEN --store-password-in-clear-text --name ansys "https://nuget.pkg.github.com/ansys/index.json"
 ```
 
-For more information, see [GitHub Working with the NuGet registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry)
+For more information, see [GitHub Working with the NuGet registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry).
 
 #### Nuget Build
 
