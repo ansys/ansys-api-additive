@@ -11,6 +11,7 @@ service SimulationService {
 	rpc Simulate(SimulationRequest) returns (stream SimulationResponse);
 	rpc UploadFile(stream UploadFileRequest) returns (stream UploadFileResponse);
 	rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+	rpc Mesh(MeshRequest) returns (stream MeshResponse);
 }
 
 message SimulationResponse {
@@ -21,6 +22,7 @@ message SimulationResponse {
 		PorosityResult porosity_result = 13;
 		MicrostructureResult microstructure_result = 14;
 		ThermalHistoryResult thermal_history_result = 15;
+		ThermalStrainResult thermal_strain_result = 16;
 	}
 }
 
@@ -31,6 +33,7 @@ message SimulationRequest {
 		PorosityInput porosity_input = 11;
 		MicrostructureInput microstructure_input = 12;
 		ThermalHistoryInput thermal_history_input = 13;
+		ThermalStrainInput thermal_strain_input = 14;
 	}
 }
 
@@ -62,4 +65,18 @@ message DownloadFileResponse {
 	bytes content = 3;		// chunk of file content
 	string content_md5 = 4; // md5 hash of content
 	Progress progress = 10;	// download progress
+}
+
+message MeshRequest {
+	string id = 1;
+	oneof Input {
+		VoxelMeshInput voxel_mesh_input = 10;
+	}
+}
+
+message MeshResponse {
+	string id = 1;
+	oneof ResponseType {
+		VoxelMeshResult voxel_mesh_result = 10;
+	}
 }
