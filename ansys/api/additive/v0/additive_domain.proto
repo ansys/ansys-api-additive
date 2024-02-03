@@ -247,7 +247,41 @@ message VoxelMeshInput {
     float voxel_size = 3;
 }
 
+
 message VoxelMeshResult {
     string voxel_file = 1; // name of voxel file on server
 }
 
+message InitialMicrostructureInput {
+    uint32 number_of_random_nuclei = 1;
+    double x_dimension = 2;
+    double y_dimension = 3;
+    double z_dimension = 4;
+}
+
+message Microstructure3DInput {
+    double x_dimension = 1;
+    double y_dimension = 2;
+    double z_dimension = 3;
+    optional double x_origin = 16;
+    optional double y_origin = 17;
+    optional double z_origin = 18;
+    optional double deposit_layer_thickness = 19;
+    optional uint32 num_deposit_layers = 20;
+    optional uint32 first_deposit_layer = 21;
+    optional double thermal_domain_depth = 22;
+    optional double x_thermal_domain_grid_spacing = 23;
+    optional double y_thermal_domain_grid_spacing = 24;
+    optional double z_thermal_domain_grid_spacing = 25;
+    optional bool use_transient_bulk_nucleation = 26;
+    optional double max_bulk_nucleation_density = 27;
+    optional bool run_initial_microstructure = 28;
+    optional InitialMicrostructureInput initial_microstructure_input = 29;
+    optional MachineSettings machine = 30;
+    optional AdditiveMaterial material = 31;
+}
+
+message Microstructure3DResult {
+    bytes three_d_vtk = 1;
+    MicrostructureResult two_d_result = 2;
+}
