@@ -263,6 +263,8 @@ message Microstructure3DInput {
     double x_dimension = 1;
     double y_dimension = 2;
     double z_dimension = 3;
+    optional bytes initial_grain_data = 4;
+    optional bytes initial_euler_angle_data = 5;
     optional double x_origin = 16;
     optional double y_origin = 17;
     optional double z_origin = 18;
@@ -279,6 +281,8 @@ message Microstructure3DInput {
     optional InitialMicrostructureInput initial_microstructure_input = 29;
     optional MachineSettings machine = 30;
     optional AdditiveMaterial material = 31;
+    optional double use_provided_initial_microstructure_data = 32;
+    optional string thermal_data_file_type = 33;
 }
 
 message Microstructure3DResult {
