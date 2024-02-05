@@ -23,6 +23,7 @@ message SimulationResponse {
 		MicrostructureResult microstructure_result = 14;
 		ThermalHistoryResult thermal_history_result = 15;
 		ThermalStrainResult thermal_strain_result = 16;
+		Microstructure3DResult microstructure_3d_result = 17;
 	}
 }
 
