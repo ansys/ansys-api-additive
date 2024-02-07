@@ -265,9 +265,9 @@ message Microstructure3DInput {
     double z_dimension = 3;
     optional bytes initial_grain_data = 4;
     optional bytes initial_euler_angle_data = 5;
-    optional double x_origin = 16;
-    optional double y_origin = 17;
-    optional double z_origin = 18;
+    optional double x_origin = 16; // thermal domain origin x
+    optional double y_origin = 17; // thermal domain origin y
+    optional double z_origin = 18; // thermal domain origin z
     optional double deposit_layer_thickness = 19;
     optional uint32 num_deposit_layers = 20;
     optional uint32 first_deposit_layer = 21;
@@ -283,6 +283,9 @@ message Microstructure3DInput {
     optional AdditiveMaterial material = 31;
     optional double use_provided_initial_microstructure_data = 32;
     optional string thermal_data_file_type = 33;
+    optional double ms_x_origin = 34; // microstructure domain origin x
+    optional double ms_y_origin = 35; // microstructure domain origin y
+    optional double ms_z_origin = 36; // microstructure domain origin z
 }
 
 message Microstructure3DResult {
