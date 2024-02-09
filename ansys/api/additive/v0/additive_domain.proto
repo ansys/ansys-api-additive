@@ -254,38 +254,34 @@ message VoxelMeshResult {
 
 message InitialMicrostructureInput {
     uint32 number_of_random_nuclei = 1;
-    double x_dimension = 2;
-    double y_dimension = 3;
-    double z_dimension = 4;
+    double x_length = 2; // length of the domain cuboid in the x direction
+    double y_length = 3; // length of the domain cuboid in the y direction
+    double z_length = 4; // length of the domain cuboid in the z direction
 }
 
 message Microstructure3DInput {
-    double x_dimension = 1;
-    double y_dimension = 2;
-    double z_dimension = 3;
+    // Thermal and microstructure domains are assumed to be coincident.
+    double x_length = 1; // length of the domain cuboid in the x direction
+    double y_length = 2; // length of the domain cuboid in the y direction
+    double z_length = 3; // length of the domain cuboid in the z direction
     optional bytes initial_grain_data = 4;
     optional bytes initial_euler_angle_data = 5;
-    optional double x_origin = 16; // thermal domain origin x
-    optional double y_origin = 17; // thermal domain origin y
-    optional double z_origin = 18; // thermal domain origin z
+    optional double x_origin = 16; // offset from base plate origin in x direction
+    optional double y_origin = 17; // offset from base plate origin in y direction
+    optional double z_origin = 18; // offset from base plate origin in z direction
     optional double deposit_layer_thickness = 19;
     optional uint32 num_deposit_layers = 20;
     optional uint32 first_deposit_layer = 21;
-    optional double thermal_domain_depth = 22;
-    optional double x_thermal_domain_grid_spacing = 23;
-    optional double y_thermal_domain_grid_spacing = 24;
-    optional double z_thermal_domain_grid_spacing = 25;
-    optional bool use_transient_bulk_nucleation = 26;
-    optional double max_bulk_nucleation_density = 27;
-    optional bool run_initial_microstructure = 28;
-    optional InitialMicrostructureInput initial_microstructure_input = 29;
-    optional MachineSettings machine = 30;
-    optional AdditiveMaterial material = 31;
-    optional double use_provided_initial_microstructure_data = 32;
-    optional string thermal_data_file_type = 33;
-    optional double ms_x_origin = 34; // microstructure domain origin x
-    optional double ms_y_origin = 35; // microstructure domain origin y
-    optional double ms_z_origin = 36; // microstructure domain origin z
+    optional double x_thermal_domain_grid_spacing = 22;
+    optional double y_thermal_domain_grid_spacing = 23;
+    optional double z_thermal_domain_grid_spacing = 24;
+    optional bool use_transient_bulk_nucleation = 25;
+    optional double max_bulk_nucleation_density = 26;
+    optional bool run_initial_microstructure = 27;
+    optional InitialMicrostructureInput initial_microstructure_input = 28;
+    optional MachineSettings machine = 29;
+    optional AdditiveMaterial material = 30;
+    optional double use_provided_initial_microstructure_data = 31;
 }
 
 message Microstructure3DResult {
