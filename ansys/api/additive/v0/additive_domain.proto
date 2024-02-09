@@ -259,9 +259,9 @@ message Microstructure3DInput {
     double z_length = 3; // length of the domain cuboid in the z direction
     optional bytes initial_grain_data = 4;
     optional bytes initial_euler_angle_data = 5;
-    optional double x_origin = 16; // domain offset from base plate origin in x direction
-    optional double y_origin = 17; // domain offset from base plate origin in y direction
-    optional double z_origin = 18; // domain offset from base plate origin in z direction
+    optional double x_origin = 16; // offset from base plate origin in x direction
+    optional double y_origin = 17; // offset from base plate origin in y direction
+    optional double z_origin = 18; // offset from base plate origin in z direction
     optional double deposit_layer_thickness = 19;
     optional uint32 num_deposit_layers = 20;
     optional uint32 first_deposit_layer = 21;
