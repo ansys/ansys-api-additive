@@ -281,7 +281,7 @@ message Microstructure3DInput {
     optional InitialMicrostructureInput initial_microstructure_input = 28;
     optional MachineSettings machine = 29;
     optional AdditiveMaterial material = 30;
-    optional double use_provided_initial_microstructure_data = 31;
+    optional bool use_provided_initial_microstructure_data = 31;
 }
 
 message Microstructure3DResult {
