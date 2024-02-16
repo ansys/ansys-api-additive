@@ -252,13 +252,6 @@ message VoxelMeshResult {
     string voxel_file = 1; // name of voxel file on server
 }
 
-message InitialMicrostructureInput {
-    uint32 number_of_random_nuclei = 1;
-    double x_length = 2; // length of the domain cuboid in the x direction
-    double y_length = 3; // length of the domain cuboid in the y direction
-    double z_length = 4; // length of the domain cuboid in the z direction
-}
-
 message Microstructure3DInput {
     // Thermal and microstructure domains are assumed to be coincident.
     double x_length = 1; // length of the domain cuboid in the x direction
@@ -278,7 +271,7 @@ message Microstructure3DInput {
     optional bool use_transient_bulk_nucleation = 25;
     optional double max_bulk_nucleation_density = 26;
     optional bool run_initial_microstructure = 27;
-    optional InitialMicrostructureInput initial_microstructure_input = 28;
+    optional uint32 number_of_random_nuclei = 28; // only used if run_initial_microstructure is true
     optional MachineSettings machine = 29;
     optional AdditiveMaterial material = 30;
     optional bool use_provided_initial_microstructure_data = 31;
