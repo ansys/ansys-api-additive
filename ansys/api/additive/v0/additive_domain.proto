@@ -253,6 +253,7 @@ message VoxelMeshResult {
 }
 
 message Microstructure3DInput {
+    reserved 19;
     // Thermal and microstructure domains are assumed to be coincident.
     double x_length = 1; // length of the domain cuboid in the x direction
     double y_length = 2; // length of the domain cuboid in the y direction
@@ -262,7 +263,6 @@ message Microstructure3DInput {
     optional double x_origin = 16; // domain offset from base plate origin in x direction
     optional double y_origin = 17; // domain offset from base plate origin in y direction
     optional double z_origin = 18; // domain offset from base plate origin in z direction
-    optional double deposit_layer_thickness = 19;
     optional uint32 num_deposit_layers = 20;
     optional uint32 first_deposit_layer = 21;
     optional double x_thermal_domain_grid_spacing = 22;
@@ -271,7 +271,7 @@ message Microstructure3DInput {
     optional bool use_transient_bulk_nucleation = 25;
     optional double max_bulk_nucleation_density = 26;
     optional bool run_initial_microstructure = 27;
-    optional uint32 number_of_random_nuclei = 28; // only used if run_initial_microstructure is true
+    optional uint32 num_random_nuclei = 28; // only used if run_initial_microstructure is true
     optional MachineSettings machine = 29;
     optional AdditiveMaterial material = 30;
     optional bool use_provided_initial_microstructure_data = 31;
