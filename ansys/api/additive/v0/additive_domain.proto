@@ -136,6 +136,8 @@ message SingleBeadInput {
     double bead_length = 2;
     MachineSettings machine = 10;
     AdditiveMaterial material = 11;
+    bool output_thermal_history = 12;
+    int thermal_history_interval = 13;
 }
 
 message PorosityInput {
