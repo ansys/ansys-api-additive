@@ -30,7 +30,7 @@ message MeltPoolTimeStep {
 
 message MeltPool {
     repeated MeltPoolTimeStep time_steps = 1;
-    repeated bytes thermal_history_vtk = 2;
+    bytes thermal_history_vtk = 2;
 }
 
 message AdditiveMaterial {
