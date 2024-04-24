@@ -43,3 +43,4 @@ venv/
 bin/
 obj/
 protoc/
+ansys-api-additive.sln
