@@ -14,7 +14,6 @@
     <Protobuf Include="../google/**/*.proto" ProtoRoot=".." GrpcServices="both" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google.LongRunning" Version="3.3.0" />
     <PackageReference Include="Google.Protobuf" Version="3.26.1" />
     <PackageReference Include="Grpc" Version="2.46.6" />
     <PackageReference Include="Grpc.Tools" Version="2.50.0">
