@@ -4,8 +4,6 @@ package ansys.api.additive.v0;
 
 option csharp_namespace = "Ansys.Api.Additive";
 
-import "google/protobuf/timestamp.proto";
-
 // All units are assumed to be SI unless otherwise noted
 
 message MachineSettings {
@@ -285,13 +283,4 @@ message Microstructure3DInput {
 message Microstructure3DResult {
     bytes three_d_vtk = 1;
     MicrostructureResult two_d_result = 2;
-}
-
-message OperationMetadata {
-    google.protobuf.Timestamp CreateTime = 1;
-    google.protobuf.Timestamp EndTime = 2;
-    string simulationId = 3;
-    string context = 4;
-    string message = 5;
-    float percentComplete = 6;
 }
