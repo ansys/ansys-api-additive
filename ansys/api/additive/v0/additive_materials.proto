@@ -6,6 +6,7 @@ package ansys.api.additive.v0.materials;
 option csharp_namespace = "Ansys.Api.Additive.Materials";
 
 import "ansys/api/additive/v0/additive_domain.proto";
+import "google/longrunning/operations.proto";
 import "google/protobuf/empty.proto";
 
 service MaterialsService {
@@ -14,7 +15,12 @@ service MaterialsService {
 
     rpc GetMaterial (GetMaterialRequest) returns (AdditiveMaterial);
 
-    rpc TuneMaterial (TuneMaterialRequest) returns (stream TuneMaterialResponse);
+    rpc TuneMaterial (TuneMaterialRequest) returns (google.longrunning.Operation) {
+        option (google.longrunning.operation_info) = {
+			response_type: "TuneMaterialResponse"
+			metadata_type: "OperationMetadata"
+		};
+    }
 }
 
 message GetMaterialRequest {

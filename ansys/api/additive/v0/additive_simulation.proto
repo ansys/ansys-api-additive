@@ -12,21 +12,18 @@ service SimulationService {
 	rpc Simulate(SimulationRequest) returns (google.longrunning.Operation) {
 		option (google.longrunning.operation_info) = {
 			response_type: "SimulationResponse"
+			metadata_type: "OperationMetadata"
 		};
 	}
-	rpc UploadFile(stream UploadFileRequest) returns (google.longrunning.Operation) {
-		option (google.longrunning.operation_info) = {
-			response_type: "UploadFileResponse"
-		};
-	}
-	rpc DownloadFile(DownloadFileRequest) returns (google.longrunning.Operation) {
-		option (google.longrunning.operation_info) = {
-			response_type: "DownloadFileResponse"
-		};
-	}
+
+	rpc UploadFile(stream UploadFileRequest) returns (stream UploadFileResponse);
+
+	rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+
 	rpc Mesh(MeshRequest) returns (google.longrunning.Operation) {
 		option (google.longrunning.operation_info) = {
 			response_type: "MeshResponse"
+			metadata_type: "OperationMetadata"
 		};
 	}
 }
