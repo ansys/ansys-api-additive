@@ -69,6 +69,7 @@ message AdditiveMaterial {
     string name = 34;
     repeated ThermalPropertiesDataPoint thermal_properties_data_points = 35;
     repeated CharacteristicWidthDataPoint characteristic_width_data_points = 36;
+    string description = 37;
 }
 
 message CharacteristicWidthDataPoint {
