@@ -10,7 +10,7 @@ import "google/protobuf/empty.proto";
 
 service MaterialsService {
 
-    rpc AddMaterial(AddMaterialRequest) return (AddMaterialResponse);
+    rpc AddMaterial(AddMaterialRequest) returns (AddMaterialResponse);
 
     rpc GetMaterialsList (google.protobuf.Empty) returns (GetMaterialsListResponse);
 
