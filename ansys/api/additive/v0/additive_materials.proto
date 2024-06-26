@@ -12,6 +12,10 @@ import "google/protobuf/empty.proto";
 
 service MaterialsService {
 
+    rpc AddMaterial(AddMaterialRequest) returns (AddMaterialResponse);
+
+    rpc RemoveMaterial(RemoveMaterialRequest) returns (google.protobuf.Empty);
+
     rpc GetMaterialsList (google.protobuf.Empty) returns (GetMaterialsListResponse);
 
     rpc GetMaterial (GetMaterialRequest) returns (AdditiveMaterial);
@@ -22,6 +26,23 @@ service MaterialsService {
 			metadata_type: "OperationMetadata"
 		};
     }
+}
+
+message AddMaterialRequest {
+    string id = 1;
+    AdditiveMaterial material = 2;
+}
+
+message AddMaterialResponse {
+    string id = 1;
+    oneof ResponseType {
+        string error = 2;
+        AdditiveMaterial material = 3;
+    }
+}
+
+message RemoveMaterialRequest {
+    string name = 1;
 }
 
 message GetMaterialRequest {
