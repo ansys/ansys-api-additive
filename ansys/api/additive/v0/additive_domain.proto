@@ -220,6 +220,8 @@ message MaterialTuningResult {
     bytes log = 1;
     bytes optimized_parameters = 2;
     bytes characteristic_width_lookup = 10;
+    bytes coefficients = 11;
+    bytes material_parameters = 12;
 }
 
 enum ThermalSolveType {
