@@ -10,10 +10,10 @@ import "google/protobuf/timestamp.proto";
 
 // Metadata for a long running operation
 message OperationMetadata {
-    google.protobuf.Timestamp CreateTime = 1;
-    google.protobuf.Timestamp EndTime = 2;
-    string simulationId = 3;
+    google.protobuf.Timestamp creation_time = 1;
+    google.protobuf.Timestamp end_time = 2;
+    string simulation_id = 3;
     string context = 4;
     string message = 5;
-    float percentComplete = 6;
+    float percent_complete = 6;
 }
