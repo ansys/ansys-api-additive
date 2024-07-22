@@ -6,6 +6,7 @@ package ansys.api.additive.v0;
 
 option csharp_namespace = "Ansys.Api.Additive";
 
+import "ansys/api/additive/v0/additive_domain.proto";
 import "google/protobuf/timestamp.proto";
 
 // Metadata for a long running operation
@@ -16,4 +17,5 @@ message OperationMetadata {
     string context = 4;
     string message = 5;
     float percent_complete = 6;
+    ProgressState state = 7;
 }
