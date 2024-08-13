@@ -97,10 +97,13 @@ message Progress {
 
 enum ProgressState {
     PROGRESS_STATE_UNSPECIFIED = 0; // default value used in messages
-    PROGRESS_STATE_WAITING = 1;
-    PROGRESS_STATE_EXECUTING = 2;
-    PROGRESS_STATE_COMPLETED = 3;
-    PROGRESS_STATE_ERROR = 4;
+    PROGRESS_STATE_WAITING = 1;     // simulation has been queued but not started
+    PROGRESS_STATE_EXECUTING = 2;   // simulation is running
+    PROGRESS_STATE_COMPLETED = 3;   // simulation has completed successfully
+    PROGRESS_STATE_ERROR = 4;       // simulation has failed
+    PROGRESS_STATE_NEW = 5;         // simulation has been created but not queued to run
+    PROGRESS_STATE_CANCELLED = 6;   // simulation has been cancelled
+    PROGRESS_STATE_WARNING = 7;     // simulation has completed with warnings
 }
 
 message Range {
