@@ -18,4 +18,5 @@ message OperationMetadata {
     string message = 5;
     float percent_complete = 6;
     ProgressState state = 7;
+    repeated string logged_messages = 8;
 }
