@@ -20,6 +20,8 @@ service SimulationService {
 
 	rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
 
+	rpc DownloadLogs(DownloadLogsRequest) returns (stream DownloadFileResponse);
+
 	rpc Mesh(MeshRequest) returns (google.longrunning.Operation) {
 		option (google.longrunning.operation_info) = {
 			response_type: "MeshResponse"
@@ -70,6 +72,9 @@ message UploadFileResponse {
 
 message DownloadFileRequest {
 	string remote_file_name = 1; // full path to file on server
+}
+
+message DownloadLogsRequest {
 }
 
 // DownloadFileResponse is used to transfer a file in chunks from
