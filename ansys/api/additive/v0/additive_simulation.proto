@@ -20,7 +20,7 @@ service SimulationService {
 
 	rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
 
-	rpc DownloadLogs(DownloadLogsRequest) returns (stream DownloadLogResponse);
+	rpc DownloadLogs(DownloadLogsRequest) returns (stream DownloadFileResponse);
 
 	rpc Mesh(MeshRequest) returns (google.longrunning.Operation) {
 		option (google.longrunning.operation_info) = {
@@ -86,10 +86,6 @@ message DownloadFileResponse {
 	bytes content = 3;		// chunk of file content
 	string content_md5 = 4; // md5 hash of content
 	Progress progress = 10;	// download progress
-}
-
-message DownloadLogResponse {
-	DownloadFileResponse response = 1;
 }
 
 message MeshRequest {
