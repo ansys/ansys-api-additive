@@ -14,7 +14,7 @@ service ServerInfoService {
         };
     }
 
-    rpc DownloadLogs(google.protobuf.Empty) returns (stream DownloadFileResponse);
+    rpc ServerLogs(google.protobuf.Empty) returns (stream DownloadFileResponse);
 }
 
 message AboutResponse {
