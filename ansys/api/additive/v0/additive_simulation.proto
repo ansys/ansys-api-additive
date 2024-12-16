@@ -20,8 +20,6 @@ service SimulationService {
 
 	rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
 
-    rpc SimulationLogs(SimulationLogsRequest) returns (stream DownloadFileResponse);
-
 	rpc Mesh(MeshRequest) returns (google.longrunning.Operation) {
 		option (google.longrunning.operation_info) = {
 			response_type: "MeshResponse"
@@ -32,6 +30,7 @@ service SimulationService {
 
 message SimulationResponse {
 	string id = 1;
+    bytes logs = 2;
 	oneof ResponseType {
 		Progress progress = 10;
 		MeltPool melt_pool = 11;
