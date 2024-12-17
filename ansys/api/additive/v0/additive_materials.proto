@@ -21,7 +21,7 @@ service MaterialsService {
 
     rpc TuneMaterial (TuneMaterialRequest) returns (google.longrunning.Operation) {
         option (google.longrunning.operation_info) = {
-			response_type: "TuneMaterialResponse"
+			response_type: "SimulationResponse"
 			metadata_type: "OperationMetadata"
 		};
     }
@@ -57,11 +57,4 @@ message TuneMaterialRequest {
     MaterialTuningInput input = 2;
 }
 
-message TuneMaterialResponse {
-    string id = 1;
-    oneof ResponseType {
-        Progress progress = 10;
-        MaterialTuningResult result = 11;
-    }
-}
 
