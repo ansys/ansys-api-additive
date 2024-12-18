@@ -37,6 +37,7 @@ message SimulationRequest {
         ThermalHistoryInput thermal_history_input = 13;
         ThermalStrainInput thermal_strain_input = 14;
         Microstructure3DInput microstructure_3d_input = 15;
+        MaterialTuningInput material_tuning_input = 16;
     }
 }
 
