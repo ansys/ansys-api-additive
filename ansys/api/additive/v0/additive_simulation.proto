@@ -41,6 +41,21 @@ message SimulationRequest {
     }
 }
 
+message SimulationResponse {
+    string id = 1;
+    bytes logs = 2; // zip file containing simulation logs
+    oneof ResponseType {
+        Progress progress = 10;
+        MeltPool melt_pool = 11;
+        PorosityResult porosity_result = 13;
+        MicrostructureResult microstructure_result = 14;
+        ThermalHistoryResult thermal_history_result = 15;
+        ThermalStrainResult thermal_strain_result = 16;
+        Microstructure3DResult microstructure_3d_result = 17;
+        MaterialTuningResult material_tuning_result = 18;
+    }
+}
+
 // UploadFileRequest is used to transfer a file in chunks from
 // a client to the server. Each message should be <= 4MiB
 // unless the gRPC max receive message size has been changed.
