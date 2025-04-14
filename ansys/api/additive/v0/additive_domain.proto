@@ -70,6 +70,8 @@ message AdditiveMaterial {
     repeated ThermalPropertiesDataPoint thermal_properties_data_points = 35;
     repeated CharacteristicWidthDataPoint characteristic_width_data_points = 36;
     string description = 37;
+    double cooling_rate_sim_coeff_a = 38;
+    double cooling_rate_sim_coeff_b = 39;
 }
 
 message CharacteristicWidthDataPoint {
