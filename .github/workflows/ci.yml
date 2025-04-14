@@ -48,7 +48,7 @@ jobs:
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
-          name: ansys-api-additive-packages
+          name: ansys-api-additive-packages-python
           path: dist/
           retention-days: 7
 
@@ -73,7 +73,7 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ansys-api-additive-packages
+          name: ansys-api-additive-packages-nuget
           path: nuget_package/
           retention-days: 7
 
