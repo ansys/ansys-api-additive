@@ -16,6 +16,8 @@ message MachineSettings {
     double layer_rotation_angle = 7;
     double hatch_spacing = 8;
     double slicing_stripe_width = 9;
+    string heat_source_model = 10;
+    RingModeCoefficientSets ring_mode_coefficient_set = 11;
 }
 
 message MeltPoolTimeStep {
@@ -303,4 +305,14 @@ message DownloadFileResponse {
 	bytes content = 3;		// chunk of file content
 	string content_md5 = 4; // md5 hash of content
 	Progress progress = 10;	// download progress
+}
+
+enum RingModeCoefficientSets {
+    RING_MODE_COEFFICIENT_SET_00 = 0;
+    RING_MODE_COEFFICIENT_SET_01 = 1;
+    RING_MODE_COEFFICIENT_SET_02 = 2;
+    RING_MODE_COEFFICIENT_SET_03 = 3;
+    RING_MODE_COEFFICIENT_SET_04 = 4;
+    RING_MODE_COEFFICIENT_SET_05 = 5;
+    RING_MODE_COEFFICIENT_SET_06 = 6;
 }
