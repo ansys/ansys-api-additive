@@ -16,7 +16,7 @@ message MachineSettings {
     double layer_rotation_angle = 7;
     double hatch_spacing = 8;
     double slicing_stripe_width = 9;
-    string heat_source_model = 10;
+    HeatSourceModelType heat_source_model = 10;
     RingModeCoefficientSets ring_mode_coefficient_set = 11;
 }
 
@@ -305,6 +305,11 @@ message DownloadFileResponse {
 	bytes content = 3;		// chunk of file content
 	string content_md5 = 4; // md5 hash of content
 	Progress progress = 10;	// download progress
+}
+
+enum HeatSourceModelType {
+    HEAT_SOURCE_MODEL_GAUSSIAN = 0;
+    HEAT_SOURCE_MODEL_RING = 1;
 }
 
 enum RingModeCoefficientSets {
