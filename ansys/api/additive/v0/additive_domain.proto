@@ -17,7 +17,7 @@ message MachineSettings {
     double hatch_spacing = 8;
     double slicing_stripe_width = 9;
     HeatSourceModelType heat_source_model = 10;
-    RingModeCoefficientSets ring_mode_coefficient_set = 11;
+    RingModeIndex ring_mode_index = 11;
 }
 
 message MeltPoolTimeStep {
@@ -312,12 +312,12 @@ enum HeatSourceModelType {
     HEAT_SOURCE_MODEL_RING = 1;
 }
 
-enum RingModeCoefficientSets {
-    RING_MODE_COEFFICIENT_SET_00 = 0;
-    RING_MODE_COEFFICIENT_SET_01 = 1;
-    RING_MODE_COEFFICIENT_SET_02 = 2;
-    RING_MODE_COEFFICIENT_SET_03 = 3;
-    RING_MODE_COEFFICIENT_SET_04 = 4;
-    RING_MODE_COEFFICIENT_SET_05 = 5;
-    RING_MODE_COEFFICIENT_SET_06 = 6;
+enum RingModeIndex {
+    RING_MODE_INDEX_00 = 0;
+    RING_MODE_INDEX_01 = 1;
+    RING_MODE_INDEX_02 = 2;
+    RING_MODE_INDEX_03 = 3;
+    RING_MODE_INDEX_04 = 4;
+    RING_MODE_INDEX_05 = 5;
+    RING_MODE_INDEX_06 = 6;
 }
