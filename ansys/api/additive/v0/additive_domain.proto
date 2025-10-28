@@ -310,6 +310,7 @@ message DownloadFileResponse {
 enum HeatSourceModelType {
     HEAT_SOURCE_MODEL_GAUSSIAN = 0;
     HEAT_SOURCE_MODEL_RING = 1;
+    HEAT_SOURCE_MODEL_DYNAMIC_DEFOCUS = 2;
 }
 
 enum RingModeIndex {
