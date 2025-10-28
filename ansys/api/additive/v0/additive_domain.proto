@@ -74,6 +74,10 @@ message AdditiveMaterial {
     string description = 37;
     double cooling_rate_sim_coeff_a = 38;
     double cooling_rate_sim_coeff_b = 39;
+    double laser_shape_parameter = 40;
+    double laser_distribution_parameter = 41;
+    double absorption_conduction_mode = 42;
+    double fresnal_absorption_coefficient = 43;
 }
 
 message CharacteristicWidthDataPoint {
