@@ -18,6 +18,7 @@ message MachineSettings {
     double slicing_stripe_width = 9;
     HeatSourceModelType heat_source_model = 10;
     RingModeIndex ring_mode_index = 11;
+    int32 defocus_index = 12;
 }
 
 message MeltPoolTimeStep {
@@ -74,6 +75,10 @@ message AdditiveMaterial {
     string description = 37;
     double cooling_rate_sim_coeff_a = 38;
     double cooling_rate_sim_coeff_b = 39;
+    double laser_shape_parameter = 40;
+    double laser_distribution_parameter = 41;
+    double absorption_conduction_mode = 42;
+    double fresnal_absorption_coefficient = 43;
 }
 
 message CharacteristicWidthDataPoint {
@@ -310,6 +315,7 @@ message DownloadFileResponse {
 enum HeatSourceModelType {
     HEAT_SOURCE_MODEL_GAUSSIAN = 0;
     HEAT_SOURCE_MODEL_RING = 1;
+    HEAT_SOURCE_MODEL_DYNAMIC_DEFOCUS = 2;
 }
 
 enum RingModeIndex {
