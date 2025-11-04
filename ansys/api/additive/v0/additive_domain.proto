@@ -18,7 +18,7 @@ message MachineSettings {
     double slicing_stripe_width = 9;
     HeatSourceModelType heat_source_model = 10;
     RingModeIndex ring_mode_index = 11;
-    int32 defocus_index = 12;
+    double defocus_distance = 12;
 }
 
 message MeltPoolTimeStep {
