@@ -95,8 +95,8 @@ jobs:
       - name: Upload to Public PyPi
         run: |
           pip install twine
-          twine upload --skip-existing ./**/*.whl
-          twine upload --skip-existing ./**/*.tar.gz
+          twine upload ./**/*.whl
+          twine upload ./**/*.tar.gz
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
